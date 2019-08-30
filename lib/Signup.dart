@@ -276,7 +276,7 @@ class _SignupState extends State<Signup> {
                           e != "" &&
                           p == cp) {
                         //addData();
-                        validUser();
+                        //validUser();
                         AlertDialog dialog = new AlertDialog(
                           backgroundColor: Colors.cyan,
                           shape: RoundedRectangleBorder(
@@ -288,7 +288,7 @@ class _SignupState extends State<Signup> {
                               TextField(
                                 controller: centerOPT,
                                 decoration:
-                                    InputDecoration(hintText: 'Enter OTP'),
+                                InputDecoration(hintText: 'Enter OTP'),
                               )
                             ],
                           ),
@@ -298,15 +298,15 @@ class _SignupState extends State<Signup> {
 //                                  Navigator.pop(context);
 //                                  Navigator.pop(context);
 //                                  Navigator.pushReplacementNamed(context, '/Login');;
-                                setState(() {
-                                  if (centerOPT.text == random.toString()) {
-                                    addData();
-                                    Navigator.pop(context);
-                                    Navigator.pop(context);
-                                    Navigator.pushReplacementNamed(
-                                        context, '/Login');
-                                  }
-                                });
+                                  setState(() {
+                                    if (centerOPT.text == random.toString()) {
+                                      addData();
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      Navigator.pushReplacementNamed(
+                                          context, '/Login');
+                                    }
+                                  });
                                 },
                                 child: Text('Done',
                                     style: TextStyle(
