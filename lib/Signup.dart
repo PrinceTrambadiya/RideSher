@@ -322,7 +322,7 @@ class _SignupState extends State<Signup> {
                   },
                   child: Container(
                     child: Text(
-                      'SUBMIT',
+                      'GENERATE OTP',
                       style: TextStyle(fontSize: 20),
                     ),
                   ),

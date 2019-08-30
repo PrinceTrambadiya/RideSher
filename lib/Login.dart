@@ -19,7 +19,7 @@ class _LoginState extends State<Login> {
     final response = await http.post(
         "https://ridesher.000webhostapp.com/login_registration.php",
         body: {
-          "email": cemailid.text,
+          "mobile": cmobile.text,
         });
 
     data = json.decode(response.body);
@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  TextEditingController cemailid = new TextEditingController();
+  TextEditingController cmobile = new TextEditingController();
   TextEditingController cpassword = new TextEditingController();
 
   bool _ishidden = true;
@@ -83,15 +83,15 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 75, 15, 0),
               child: TextField(
-                controller: cemailid,
+                controller: cmobile,
                 style: TextStyle(color: Colors.white, fontSize: 18),
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     hintStyle: TextStyle(color: Colors.white),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
                         borderRadius: BorderRadius.circular(35.0)),
-                    hintText: 'Email',
+                    hintText: 'Mobile Number',
                     icon: Icon(
                       Icons.person,
                       size: 45,
