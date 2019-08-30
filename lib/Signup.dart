@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:http/http.dart' as http;
+import 'dart:math';
 
 var date1 = '';
 
@@ -23,6 +24,10 @@ class _SignupState extends State<Signup> {
   TextEditingController cemail = new TextEditingController();
   TextEditingController cdob = new TextEditingController();
   TextEditingController caddress = new TextEditingController();
+  TextEditingController centerOPT = new TextEditingController();
+
+  var rng = new Random();
+  var random;
 
   DateTime _dateTime;
   RegExp regex = new RegExp(pattern);
@@ -56,6 +61,15 @@ class _SignupState extends State<Signup> {
       "mobile": cmobile.text,
       "dob": cdob.text,
       "address": caddress.text
+    });
+  }
+
+  void validUser() {
+    random = rng.nextInt(1000000);
+    var url1 = "https://ridesher.000webhostapp.com/sendSMS.php";
+    http.post(url1, body: {
+      "mobile": cmobile.text,
+      "text": random.toString(),
     });
   }
 
@@ -252,8 +266,7 @@ class _SignupState extends State<Signup> {
                       var d = cdob.text;
                       var e = cemail.text;
                       var cp = cconfirmpassword.text;
-                      if (
-                      regex.hasMatch(e) &&
+                      if (regex.hasMatch(e) &&
                           regex2.hasMatch(m) &&
                           n != "" &&
                           m != "" &&
@@ -261,27 +274,39 @@ class _SignupState extends State<Signup> {
                           a != "" &&
                           d != "" &&
                           e != "" &&
-                          p == cp
-                      ) {
-                        addData();
-//                        Navigator.pop(context);
-//                        Navigator.pop(context);
-//                        Navigator.push(
-//                            context,
-//                            MaterialPageRoute(
-//                                builder: (context) => Login()));
+                          p == cp) {
+                        //addData();
+                        validUser();
                         AlertDialog dialog = new AlertDialog(
                           backgroundColor: Colors.cyan,
                           shape: RoundedRectangleBorder(
                               side: BorderSide(style: BorderStyle.solid),
                               borderRadius: BorderRadius.circular(30)),
-                          content: success,
+                          content: Column(
+                            children: <Widget>[
+                              Text('User Verifaction'),
+                              TextField(
+                                controller: centerOPT,
+                                decoration:
+                                    InputDecoration(hintText: 'Enter OTP'),
+                              )
+                            ],
+                          ),
                           actions: <Widget>[
                             FlatButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                  Navigator.pushReplacementNamed(context, '/Login');;
+//                                  Navigator.pop(context);
+//                                  Navigator.pop(context);
+//                                  Navigator.pushReplacementNamed(context, '/Login');;
+                                setState(() {
+                                  if (centerOPT.text == random.toString()) {
+                                    addData();
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.pushReplacementNamed(
+                                        context, '/Login');
+                                  }
+                                });
                                 },
                                 child: Text('Done',
                                     style: TextStyle(
