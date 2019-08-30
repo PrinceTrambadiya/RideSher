@@ -87,7 +87,7 @@ class _SignupState extends State<Signup> {
                 padding: const EdgeInsets.fromLTRB(15, 75, 15, 0),
                 child: TextField(
                   autofocus: true,
-                  textCapitalization: TextCapitalization.sentences,
+                  textCapitalization: TextCapitalization.words,
                   controller: cname,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
@@ -254,8 +254,8 @@ class _SignupState extends State<Signup> {
                       var e = cemail.text;
                       var cp = cconfirmpassword.text;
                       if (
-//                      regex.hasMatch(e) &&
-//                          regex2.hasMatch(m) &&
+                      regex.hasMatch(e) &&
+                          regex2.hasMatch(m) &&
                           n != "" &&
                           m != "" &&
                           p != "" &&
@@ -294,11 +294,6 @@ class _SignupState extends State<Signup> {
                         );
 
                         showDialog(context: context, child: dialog);
-//
-//                        Navigator.pop(context);
-//                        // Navigator.pop(context);
-//                        Navigator.push(context,
-//                            MaterialPageRoute(builder: (context) => Login()));
                       } else {
                         error;
                       }
