@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FirstPage extends StatefulWidget {
   @override
@@ -6,12 +7,27 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  String uname;
+  String pass;
+
   @override
+  Future<void> getPrefrence() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    uname = pref.getString('uname');
+    pass = pref.getString('pass');
+  }
+
   Widget build(BuildContext context) {
+    getPrefrence();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('First'),
-      ),
-    );
+        appBar: AppBar(
+          title: Text('First'),
+        ),
+        body: Column(
+          children: <Widget>[
+            Text('dgvg'),
+            Text('ddgf'),
+          ],
+        ));
   }
 }
