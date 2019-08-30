@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:http/http.dart' as http;
-import 'Login.dart';
 
 var date1 = '';
 
@@ -14,7 +13,7 @@ String emailValue = '';
 String mobileValue = '';
 Pattern pattern =
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-Pattern pattern2 = r'^9\d{9}$';
+Pattern pattern2 = r'^[789]\d{9}$';
 
 class _SignupState extends State<Signup> {
   TextEditingController cname = new TextEditingController();
@@ -282,10 +281,7 @@ class _SignupState extends State<Signup> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                   Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Login()));
+                                  Navigator.pushReplacementNamed(context, '/Login');;
                                 },
                                 child: Text('Done',
                                     style: TextStyle(
