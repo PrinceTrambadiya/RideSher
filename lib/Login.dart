@@ -4,6 +4,7 @@ import 'Forgetpassword.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'dart:math';
 
 class Login extends StatefulWidget {
   @override
@@ -11,9 +12,26 @@ class Login extends StatefulWidget {
 }
 
 var data;
+Pattern pattern2 = r'^[789]\d{9}$';
 
 class _LoginState extends State<Login> {
+  TextEditingController cmobile = new TextEditingController();
+  TextEditingController cpassword = new TextEditingController();
+  TextEditingController centerOPT = new TextEditingController();
+  var rng = new Random();
+  var random;
   var msg = '';
+  var hintText1 = 'Password';
+
+  RegExp regex2 = new RegExp(pattern2);
+
+  bool _ishidden = true;
+
+  void _visibility() {
+    setState(() {
+      _ishidden = !_ishidden;
+    });
+  }
 
   Future<List> addData() async {
     final response = await http.post(
@@ -26,9 +44,9 @@ class _LoginState extends State<Login> {
     var typePass = cpassword.text;
     var fatchPass = data[0]['password'];
 
-    print(data);
-    print(fatchPass);
-    print(typePass);
+//    print(data);
+//    print(fatchPass);
+//    print(typePass);
 
     if (data.length == 0) {
       setState(() {
@@ -49,18 +67,15 @@ class _LoginState extends State<Login> {
     }
   }
 
-  TextEditingController cmobile = new TextEditingController();
-  TextEditingController cpassword = new TextEditingController();
-
-  bool _ishidden = true;
-
-  void _visibility() {
-    setState(() {
-      _ishidden = !_ishidden;
+  void validUser() {
+    random = rng.nextInt(1000000);
+    var url1 = "https://ridesher.000webhostapp.com/sendSMS.php";
+    http.post(url1, body: {
+      "mobile": cmobile.text,
+      "text": random.toString(),
     });
   }
 
-  var hintText1 = 'Password';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,7 +173,50 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.fromLTRB(100, 15, 100, 0),
               child: GestureDetector(
-                onTap: addData,
+                onTap: () {
+                  setState(() {
+                    var m = cmobile.text;
+                    var p = cpassword.text;
+                    if (regex2.hasMatch(m) && m != "" && p != "") {
+                      validUser();
+                      AlertDialog dialog = new AlertDialog(
+                        backgroundColor: Colors.cyan,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(30)),
+                        content: Column(
+                          children: <Widget>[
+                            Text('User Verifaction'),
+                            TextField(
+                              controller: centerOPT,
+                              decoration: InputDecoration(hintText: 'Enter OTP'),
+                            )
+                          ],
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                              onPressed: () {
+//                                  Navigator.pop(context);
+//                                  Navigator.pop(context);
+//                                  Navigator.pushReplacementNamed(context, '/Login');;
+                                setState(() {
+                                  if (centerOPT.text == random.toString()) {
+                                    addData();
+                                  }
+                                  else
+                                  {
+                                    Navigator.pushReplacementNamed(context, '/Login');
+                                  }
+                                });
+                              },
+                              child: Text('Done',
+                                  style: TextStyle(fontSize: 25, color: Colors.red))),
+                        ],
+                      );
+                    showDialog(context: context, child: dialog);
+                    }
+                  });
+                },
                 child: Container(
                   height: 50,
                   width: 10,
