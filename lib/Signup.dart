@@ -275,46 +275,8 @@ class _SignupState extends State<Signup> {
                           d != "" &&
                           e != "" &&
                           p == cp) {
-                        //addData();
                         //validUser();
-                        AlertDialog dialog = new AlertDialog(
-                          backgroundColor: Colors.cyan,
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(style: BorderStyle.solid),
-                              borderRadius: BorderRadius.circular(30)),
-                          content: Column(
-                            children: <Widget>[
-                              Text('User Verifaction'),
-                              TextField(
-                                controller: centerOPT,
-                                decoration:
-                                InputDecoration(hintText: 'Enter OTP'),
-                              )
-                            ],
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                                onPressed: () {
-//                                  Navigator.pop(context);
-//                                  Navigator.pop(context);
-//                                  Navigator.pushReplacementNamed(context, '/Login');;
-                                  setState(() {
-                                    if (centerOPT.text == random.toString()) {
-                                      addData();
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pushReplacementNamed(
-                                          context, '/Login');
-                                    }
-                                  });
-                                },
-                                child: Text('Done',
-                                    style: TextStyle(
-                                        fontSize: 25, color: Colors.red))),
-                          ],
-                        );
-
-                        showDialog(context: context, child: dialog);
+                        alertBox();
                       } else {
                         error;
                       }
@@ -334,5 +296,44 @@ class _SignupState extends State<Signup> {
         ),
       ),
     );
+  }
+
+  void alertBox() {
+    setState(() {
+      AlertDialog dialog = new AlertDialog(
+        backgroundColor: Colors.cyan,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(style: BorderStyle.solid),
+            borderRadius: BorderRadius.circular(30)),
+        content: Column(
+          children: <Widget>[
+            Text('User Verifaction'),
+            TextField(
+              controller: centerOPT,
+              decoration: InputDecoration(hintText: 'Enter OTP'),
+            )
+          ],
+        ),
+        actions: <Widget>[
+          FlatButton(
+              onPressed: () {
+//                                  Navigator.pop(context);
+//                                  Navigator.pop(context);
+//                                  Navigator.pushReplacementNamed(context, '/Login');;
+                setState(() {
+                  if (centerOPT.text == random.toString()) {
+                    addData();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context, '/Login');
+                  }
+                });
+              },
+              child: Text('Done',
+                  style: TextStyle(fontSize: 25, color: Colors.red))),
+        ],
+      );
+      showDialog(context: context, child: dialog);
+    });
   }
 }
