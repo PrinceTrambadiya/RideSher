@@ -29,13 +29,13 @@ class _LoginState extends State<Login> {
 
   bool _ishidden = true;
 
-//
+
 //  @override
 //  void intiState(){
 //    super.initState();
 //    getPrefrence();
 //  }
-//
+
 //  Future<bool> getPrefrence() async {
 //    SharedPreferences pref = await SharedPreferences.getInstance();
 //    String uname = pref.getString('uname');
@@ -57,54 +57,54 @@ class _LoginState extends State<Login> {
   }
 
   Future<bool> addData(mobile, pass) async {
-    if (mobile == '9512252645' && pass == '123') {
-      savedPrefrence(mobile, pass);
-      Navigator.pushReplacementNamed(context, '/FirstPage');
-      return true;
-    }
-    else {
-        setState(() {
-          msg = 'Login Fail';
-        });
-        return false;
-      }
-
-
-//    final response = await http.post(
-//        "https://ridesher.000webhostapp.com/login_registration.php",
-//        body: {
-//          "mobile": mobile,
-//        });
-//
-//    data = json.decode(response.body);
-//    var typePass = pass;
-//    var fatchPass = data[0]['password'];
-//
-////    print(data);
-////    print(fatchPass);
-////    print(typePass);
-//
-//    if (data.length == 0) {
-//      setState(() {
-//        print('fail');
-//      });
+//    if (mobile == '9512252645' && pass == '123') {
+//      savedPrefrence(mobile, pass);
+//      Navigator.pushReplacementNamed(context, '/FirstPage');
+//      return true;
 //    }
-//
-//    if (fatchPass != '' && typePass != '') {
-//      if (fatchPass == typePass) {
-//        setState(() {
-//          //alertBox();
-//          savedPrefrence(mobile, typePass);
-//          Navigator.pushReplacementNamed(context, '/FirstPage');
-//        });
-//        return true;
-//      } else if (fatchPass != typePass) {
+//    else {
 //        setState(() {
 //          msg = 'Login Fail';
 //        });
 //        return false;
 //      }
-//    }
+
+
+    final response = await http.post(
+        "https://ridesher.000webhostapp.com/login_registration.php",
+        body: {
+          "mobile": mobile,
+        });
+
+    data = json.decode(response.body);
+    var typePass = pass;
+    var fatchPass = data[0]['password'];
+
+//    print(data);
+//    print(fatchPass);
+//    print(typePass);
+
+    if (data.length == 0) {
+      setState(() {
+        print('fail');
+      });
+    }
+
+    if (fatchPass != '' && typePass != '') {
+      if (fatchPass == typePass) {
+        setState(() {
+          //alertBox();
+          //savedPrefrence(mobile, typePass);
+          Navigator.pushReplacementNamed(context, '/FirstPage');
+        });
+        return true;
+      } else if (fatchPass != typePass) {
+        setState(() {
+          msg = 'Login Fail';
+        });
+        return false;
+      }
+    }
   }
 
   void validUser() {
