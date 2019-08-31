@@ -84,9 +84,9 @@ class _LoginState extends State<Login> {
 //    print(fatchPass);
 //    print(typePass);
 
-    if (data.length == 0) {
+    if (fatchPass == '') {
       setState(() {
-        print('fail');
+        msg = 'Login Fail';
       });
     }
 
@@ -105,6 +105,12 @@ class _LoginState extends State<Login> {
         return false;
       }
     }
+    else
+      {
+        setState(() {
+          msg = 'Login Fail';
+        });
+      }
   }
 
   void validUser() {
@@ -113,6 +119,46 @@ class _LoginState extends State<Login> {
     http.post(url1, body: {
       "mobile": cmobile.text,
       "text": random.toString(),
+    });
+  }
+
+
+  void alertBox() {
+    setState(() {
+      //   validUser();
+      AlertDialog dialog = new AlertDialog(
+        backgroundColor: Colors.cyan,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(style: BorderStyle.solid),
+            borderRadius: BorderRadius.circular(30)),
+        content: Column(
+          children: <Widget>[
+            Text('User Verifaction'),
+            TextField(
+              controller: centerOPT,
+              decoration: InputDecoration(hintText: 'Enter OTP'),
+            )
+          ],
+        ),
+        actions: <Widget>[
+          FlatButton(
+              onPressed: () {
+//                                  Navigator.pop(context);
+//                                  Navigator.pop(context);
+//                                  Navigator.pushReplacementNamed(context, '/Login');;
+                setState(() {
+                  if (centerOPT.text == random.toString()) {
+                    Navigator.pushReplacementNamed(context, '/FirstPage');
+                  } else {
+                    Navigator.pushReplacementNamed(context, '/Login');
+                  }
+                });
+              },
+              child: Text('Done',
+                  style: TextStyle(fontSize: 25, color: Colors.red))),
+        ],
+      );
+      showDialog(context: context, child: dialog);
     });
   }
 
@@ -222,8 +268,8 @@ class _LoginState extends State<Login> {
                     var m = cmobile.text;
                     var p = cpassword.text;
                     if (regex2.hasMatch(m) && m != "" && p != "") {
-                      // validUser();
                       if (addData(m.toString(), p) == true) {
+                        // validUser();
                         Navigator.pushReplacementNamed(context, '/FirstPage');
                       }
                     }
@@ -280,44 +326,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-
-  void alertBox() {
-    setState(() {
-      //   validUser();
-      AlertDialog dialog = new AlertDialog(
-        backgroundColor: Colors.cyan,
-        shape: RoundedRectangleBorder(
-            side: BorderSide(style: BorderStyle.solid),
-            borderRadius: BorderRadius.circular(30)),
-        content: Column(
-          children: <Widget>[
-            Text('User Verifaction'),
-            TextField(
-              controller: centerOPT,
-              decoration: InputDecoration(hintText: 'Enter OTP'),
-            )
-          ],
-        ),
-        actions: <Widget>[
-          FlatButton(
-              onPressed: () {
-//                                  Navigator.pop(context);
-//                                  Navigator.pop(context);
-//                                  Navigator.pushReplacementNamed(context, '/Login');;
-                setState(() {
-                  if (centerOPT.text == random.toString()) {
-                    Navigator.pushReplacementNamed(context, '/FirstPage');
-                  } else {
-                    Navigator.pushReplacementNamed(context, '/Login');
-                  }
-                });
-              },
-              child: Text('Done',
-                  style: TextStyle(fontSize: 25, color: Colors.red))),
-        ],
-      );
-      showDialog(context: context, child: dialog);
-    });
   }
 }

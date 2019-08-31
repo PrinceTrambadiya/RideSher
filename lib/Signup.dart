@@ -323,8 +323,6 @@ class _SignupState extends State<Signup> {
                 setState(() {
                   if (centerOPT.text == random.toString()) {
                     addData();
-                    Navigator.pop(context);
-                    Navigator.pop(context);
                     Navigator.pushReplacementNamed(context, '/Login');
                   }
                 });
