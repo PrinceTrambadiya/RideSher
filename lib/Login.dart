@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Signup.dart';
 import 'Forgetpassword.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:math';
+import 'Shared_data.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -27,44 +29,82 @@ class _LoginState extends State<Login> {
 
   bool _ishidden = true;
 
+//
+//  @override
+//  void intiState(){
+//    super.initState();
+//    getPrefrence();
+//  }
+//
+//  Future<bool> getPrefrence() async {
+//    SharedPreferences pref = await SharedPreferences.getInstance();
+//    String uname = pref.getString('uname');
+//    String pass = pref.getString('pass');
+//    return addData(uname, pass);
+//  }
+//
+//  Future<void> savedPrefrence(String uname, String pass) async {
+//    SharedPreferences pref = await SharedPreferences.getInstance();
+//    pref.setString('uname', uname);
+//    pref.setString('pass', pass);
+//    return pref.commit();
+//  }
+
   void _visibility() {
     setState(() {
       _ishidden = !_ishidden;
     });
   }
 
-  Future<List> addData() async {
-    final response = await http.post(
-        "https://ridesher.000webhostapp.com/login_registration.php",
-        body: {
-          "mobile": cmobile.text,
-        });
-
-    data = json.decode(response.body);
-    var typePass = cpassword.text;
-    var fatchPass = data[0]['password'];
-
-//    print(data);
-//    print(fatchPass);
-//    print(typePass);
-
-    if (data.length == 0) {
-      setState(() {
-        print('fail');
-      });
+  Future<bool> addData(mobile, pass) async {
+    if (mobile == '9512252645' && pass == '123') {
+      savedPrefrence(mobile, pass);
+      Navigator.pushReplacementNamed(context, '/FirstPage');
+      return true;
     }
-
-    if (fatchPass != '' && typePass != '') {
-      if (fatchPass == typePass) {
-        setState(() {
-         alertBox();
-        });
-      } else if (fatchPass != typePass) {
+    else {
         setState(() {
           msg = 'Login Fail';
         });
+        return false;
       }
-    }
+
+
+//    final response = await http.post(
+//        "https://ridesher.000webhostapp.com/login_registration.php",
+//        body: {
+//          "mobile": mobile,
+//        });
+//
+//    data = json.decode(response.body);
+//    var typePass = pass;
+//    var fatchPass = data[0]['password'];
+//
+////    print(data);
+////    print(fatchPass);
+////    print(typePass);
+//
+//    if (data.length == 0) {
+//      setState(() {
+//        print('fail');
+//      });
+//    }
+//
+//    if (fatchPass != '' && typePass != '') {
+//      if (fatchPass == typePass) {
+//        setState(() {
+//          //alertBox();
+//          savedPrefrence(mobile, typePass);
+//          Navigator.pushReplacementNamed(context, '/FirstPage');
+//        });
+//        return true;
+//      } else if (fatchPass != typePass) {
+//        setState(() {
+//          msg = 'Login Fail';
+//        });
+//        return false;
+//      }
+//    }
   }
 
   void validUser() {
@@ -78,6 +118,10 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    if (getPrefrence() == true) {
+      Navigator.pushReplacementNamed(context, '/FirstPage');
+    }
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -85,7 +129,7 @@ class _LoginState extends State<Login> {
                 image: AssetImage('images/ride1.jpg'),
                 fit: BoxFit.fill,
                 colorFilter:
-                    ColorFilter.mode(Colors.black87, BlendMode.hardLight))),
+                ColorFilter.mode(Colors.black87, BlendMode.hardLight))),
         child: ListView(
           children: <Widget>[
             Padding(
@@ -130,16 +174,16 @@ class _LoginState extends State<Login> {
                     hintText: hintText1,
                     suffixIcon: hintText1 == "Password"
                         ? IconButton(
-                            icon: _ishidden
-                                ? Icon(
-                                    Icons.visibility_off,
-                                    color: Colors.blue,
-                                  )
-                                : Icon(
-                                    Icons.remove_red_eye,
-                                    color: Colors.blue,
-                                  ),
-                            onPressed: _visibility)
+                        icon: _ishidden
+                            ? Icon(
+                          Icons.visibility_off,
+                          color: Colors.blue,
+                        )
+                            : Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.blue,
+                        ),
+                        onPressed: _visibility)
                         : null,
                     hintStyle: TextStyle(color: Colors.white),
                     icon: Icon(
@@ -178,8 +222,10 @@ class _LoginState extends State<Login> {
                     var m = cmobile.text;
                     var p = cpassword.text;
                     if (regex2.hasMatch(m) && m != "" && p != "") {
-                     // validUser();
-                      addData();
+                      // validUser();
+                      if (addData(m.toString(), p) == true) {
+                        Navigator.pushReplacementNamed(context, '/FirstPage');
+                      }
                     }
                   });
                 },
@@ -189,12 +235,12 @@ class _LoginState extends State<Login> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       gradient:
-                          LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                      LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
                       child: Text(
-                    "Let's get Started",
-                    style: TextStyle(fontSize: 18),
-                  )),
+                        "Let's get Started",
+                        style: TextStyle(fontSize: 18),
+                      )),
                 ),
               ),
             ),
@@ -227,18 +273,18 @@ class _LoginState extends State<Login> {
             ),
             Center(
                 child: Text(
-              msg,
-              style: TextStyle(color: Colors.red, fontSize: 20),
-            )),
+                  msg,
+                  style: TextStyle(color: Colors.red, fontSize: 20),
+                )),
           ],
         ),
       ),
     );
   }
-  void alertBox()
-  {
+
+  void alertBox() {
     setState(() {
-   //   validUser();
+      //   validUser();
       AlertDialog dialog = new AlertDialog(
         backgroundColor: Colors.cyan,
         shape: RoundedRectangleBorder(
@@ -262,9 +308,7 @@ class _LoginState extends State<Login> {
                 setState(() {
                   if (centerOPT.text == random.toString()) {
                     Navigator.pushReplacementNamed(context, '/FirstPage');
-                  }
-                  else
-                  {
+                  } else {
                     Navigator.pushReplacementNamed(context, '/Login');
                   }
                 });

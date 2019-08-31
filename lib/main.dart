@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ride_sher/FirstPage.dart';
 import 'Login.dart';
-import 'Signup.dart';
-import 'Forgetpassword.dart';
 
 
 void main() => runApp(MyApp());
@@ -20,8 +18,6 @@ class MyApp extends StatelessWidget {
       routes: <String,WidgetBuilder>{
         '/FirstPage': (BuildContext context) => new FirstPage(),
         '/Login': (BuildContext context) => new Login(),
-        '/Signup': (BuildContext context) => new Signup(),
-        '/Forgetpassword': (BuildContext context) => new Forgetpassword(),
       },
     );
   }
