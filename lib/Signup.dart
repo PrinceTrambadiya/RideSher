@@ -28,6 +28,7 @@ class _SignupState extends State<Signup> {
 
   var rng = new Random();
   var random;
+  var msg = '';
 
   DateTime _dateTime;
   RegExp regex = new RegExp(pattern);
@@ -70,6 +71,51 @@ class _SignupState extends State<Signup> {
     http.post(url1, body: {
       "mobile": cmobile.text,
       "text": random.toString(),
+    });
+  }
+
+
+  void alertBox() {
+    setState(() {
+      AlertDialog dialog = new AlertDialog(
+        backgroundColor: Colors.cyan,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(style: BorderStyle.solid),
+            borderRadius: BorderRadius.circular(30)),
+        content: Column(
+          children: <Widget>[
+            Text('User Verifaction'),
+            TextField(
+              controller: centerOPT,
+              decoration: InputDecoration(hintText: 'Enter OTP'),
+            )
+          ],
+        ),
+        actions: <Widget>[
+          FlatButton(
+              onPressed: () {
+//                                  Navigator.pop(context);
+//                                  Navigator.pop(context);
+//                                  Navigator.pushReplacementNamed(context, '/Login');;
+                setState(() {
+//                  if (centerOPT.text == random.toString()) {
+//                    addData();
+//                    Navigator.pushReplacementNamed(context, '/Login');
+//                  }
+//                  else{
+//                    setState(() {
+//                      msg = 'Signup Fail';
+//                    });
+//                  }
+                  addData();
+                  Navigator.pushReplacementNamed(context, '/Login');
+                });
+              },
+              child: Text('Done',
+                  style: TextStyle(fontSize: 25, color: Colors.red))),
+        ],
+      );
+      showDialog(context: context, child: dialog);
     });
   }
 
@@ -296,42 +342,5 @@ class _SignupState extends State<Signup> {
         ),
       ),
     );
-  }
-
-  void alertBox() {
-    setState(() {
-      AlertDialog dialog = new AlertDialog(
-        backgroundColor: Colors.cyan,
-        shape: RoundedRectangleBorder(
-            side: BorderSide(style: BorderStyle.solid),
-            borderRadius: BorderRadius.circular(30)),
-        content: Column(
-          children: <Widget>[
-            Text('User Verifaction'),
-            TextField(
-              controller: centerOPT,
-              decoration: InputDecoration(hintText: 'Enter OTP'),
-            )
-          ],
-        ),
-        actions: <Widget>[
-          FlatButton(
-              onPressed: () {
-//                                  Navigator.pop(context);
-//                                  Navigator.pop(context);
-//                                  Navigator.pushReplacementNamed(context, '/Login');;
-                setState(() {
-                  if (centerOPT.text == random.toString()) {
-                    addData();
-                    Navigator.pushReplacementNamed(context, '/Login');
-                  }
-                });
-              },
-              child: Text('Done',
-                  style: TextStyle(fontSize: 25, color: Colors.red))),
-        ],
-      );
-      showDialog(context: context, child: dialog);
-    });
   }
 }

@@ -21,6 +21,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
   var msg = '';
   var rng = new Random();
   var random;
+  var fatchmobile;
 
   void _visibility() {
     setState(() {
@@ -38,7 +39,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
 
     data = json.decode(response.body);
     var typemobile = mobile;
-    var fatchmobile = data[0]['mobile'];
+     fatchmobile = data[0]['mobile'];
 
 //    print(data);
 //    print(fatchPass);
@@ -53,13 +54,13 @@ class _ForgetpasswordState extends State<Forgetpassword> {
     if (fatchmobile != '' && typemobile != '') {
       if (fatchmobile == typemobile) {
         setState(() {
-         // alertBox();
+          alertBox();
           //savedPrefrence(mobile, typemobile);
-          Navigator.pop(context);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ConfirmPassword(fatchmobile)));
+//          Navigator.pop(context);
+//          Navigator.push(
+//              context,
+//              MaterialPageRoute(
+//                  builder: (context) => ConfirmPassword(fatchmobile)));
         });
         return true;
       } else if (fatchmobile != typemobile) {
@@ -111,11 +112,16 @@ class _ForgetpasswordState extends State<Forgetpassword> {
 //                                  Navigator.pop(context);
 //                                  Navigator.pushReplacementNamed(context, '/Login');;
                 setState(() {
-                  if (centerOPT.text == random.toString()) {
-                    Navigator.pushReplacementNamed(context, '/ConfirmPassword');
-                  } else {
-                    Navigator.pushReplacementNamed(context, '/Forgetpassword');
-                  }
+//                  if (centerOPT.text == random.toString()) {
+//                    Navigator.pushReplacementNamed(context, '/ConfirmPassword');
+//                  } else {
+//                    Navigator.pushReplacementNamed(context, '/Forgetpassword');
+//                  }
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ConfirmPassword(fatchmobile)));
                 });
               },
               child: Text('Done',

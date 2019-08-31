@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Signup.dart';
 import 'Forgetpassword.dart';
@@ -93,9 +94,9 @@ class _LoginState extends State<Login> {
     if (fatchPass != '' && typePass != '') {
       if (fatchPass == typePass) {
         setState(() {
-          //alertBox();
+          alertBox();
           //savedPrefrence(mobile, typePass);
-          Navigator.pushReplacementNamed(context, '/FirstPage');
+        //  Navigator.pushReplacementNamed(context, '/FirstPage');
         });
         return true;
       } else if (fatchPass != typePass) {
@@ -147,11 +148,13 @@ class _LoginState extends State<Login> {
 //                                  Navigator.pop(context);
 //                                  Navigator.pushReplacementNamed(context, '/Login');;
                 setState(() {
-                  if (centerOPT.text == random.toString()) {
-                    Navigator.pushReplacementNamed(context, '/FirstPage');
-                  } else {
-                    Navigator.pushReplacementNamed(context, '/Login');
-                  }
+//                  if (centerOPT.text == random.toString()) {
+//                    Navigator.pushReplacementNamed(context, '/FirstPage');
+//                  } else {
+//                    Navigator.pushReplacementNamed(context, '/Login');
+//                  }
+                Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, '/FirstPage');
                 });
               },
               child: Text('Done',
