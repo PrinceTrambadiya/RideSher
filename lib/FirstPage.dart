@@ -8,18 +8,19 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-//  String uname;
-//  String pass;
+  String pass;
+  String uname;
 //
 //  @override
-//  Future<void> getPrefrence() async {
-//    SharedPreferences pref = await SharedPreferences.getInstance();
-//    uname = pref.getString('uname');
-//    pass = pref.getString('pass');
-//  }
+  Future<void> getPrefrence() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    uname = pref.getString('uname');
+    pass = pref.getString('pass');
+    return [uname, pass];
+  }
 
   Widget build(BuildContext context) {
-  //  getPrefrence();
+    var ls = getPrefrence();
     return Scaffold(
         appBar: AppBar(
           title: Text('First'),
@@ -33,7 +34,10 @@ class _FirstPageState extends State<FirstPage> {
                   Navigator.pushReplacementNamed(context, '/Login');
                 });
               }),
-            )
+            ),
+            Text(uname.toString()),
+            Text(pass.toString()),
+
           ],
         ));
   }

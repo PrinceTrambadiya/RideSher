@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:math';
-import 'Shared_data.dart';
+//import 'Shared_data.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -30,7 +30,6 @@ class _LoginState extends State<Login> {
 
   bool _ishidden = true;
 
-
 //  @override
 //  void intiState(){
 //    super.initState();
@@ -43,13 +42,14 @@ class _LoginState extends State<Login> {
 //    String pass = pref.getString('pass');
 //    return addData(uname, pass);
 //  }
-//
-//  Future<void> savedPrefrence(String uname, String pass) async {
-//    SharedPreferences pref = await SharedPreferences.getInstance();
-//    pref.setString('uname', uname);
-//    pref.setString('pass', pass);
-//    return pref.commit();
-//  }
+
+  Future<void> savedPrefrence(String uname, String pass) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('uname', uname);
+    pref.setString('pass', pass);
+    pref.commit();
+    return pref.commit();
+  }
 
   void _visibility() {
     setState(() {
@@ -58,60 +58,59 @@ class _LoginState extends State<Login> {
   }
 
   Future<bool> addData(mobile, pass) async {
-//    if (mobile == '9512252645' && pass == '123') {
-//      savedPrefrence(mobile, pass);
-//      Navigator.pushReplacementNamed(context, '/FirstPage');
-//      return true;
+    if (mobile == '9512252645' && pass == '123') {
+      savedPrefrence(mobile, pass);
+      Navigator.pushReplacementNamed(context, '/FirstPage');
+      return true;
+    } else {
+      setState(() {
+        msg = 'Login Fail';
+      });
+      return false;
+    }
+
+//
+//    final response = await http.post(
+//        "https://ridesher.000webhostapp.com/login_registration.php",
+//        body: {
+//          "mobile": mobile,
+//        });
+//
+//    data = json.decode(response.body);
+//    var typePass = pass;
+//    var fatchPass = data[0]['password'];
+//
+////    print(data);
+////    print(fatchPass);
+////    print(typePass);
+//
+//    if (fatchPass == '') {
+//      setState(() {
+//        msg = 'Login Fail';
+//      });
 //    }
-//    else {
+//
+//    if (fatchPass != '' && typePass != '') {
+//      if (fatchPass == typePass) {
+//        setState(() {
+//          alertBox();
+//          savedPrefrence(mobile, typePass);
+//        //  Navigator.pushReplacementNamed(context, '/FirstPage');
+//        });
+//        return true;
+//      } else if (fatchPass != typePass) {
 //        setState(() {
 //          msg = 'Login Fail';
 //        });
 //        return false;
 //      }
-
-
-    final response = await http.post(
-        "https://ridesher.000webhostapp.com/login_registration.php",
-        body: {
-          "mobile": mobile,
-        });
-
-    data = json.decode(response.body);
-    var typePass = pass;
-    var fatchPass = data[0]['password'];
-
-//    print(data);
-//    print(fatchPass);
-//    print(typePass);
-
-    if (fatchPass == '') {
-      setState(() {
-        msg = 'Login Fail';
-      });
-    }
-
-    if (fatchPass != '' && typePass != '') {
-      if (fatchPass == typePass) {
-        setState(() {
-          alertBox();
-          //savedPrefrence(mobile, typePass);
-        //  Navigator.pushReplacementNamed(context, '/FirstPage');
-        });
-        return true;
-      } else if (fatchPass != typePass) {
-        setState(() {
-          msg = 'Login Fail';
-        });
-        return false;
-      }
-    }
-    else
-      {
-        setState(() {
-          msg = 'Login Fail';
-        });
-      }
+//    }
+//    else
+//      {
+//        setState(() {
+//          msg = 'Login Fail';
+//        });
+//      }
   }
 
   void validUser() {
@@ -122,7 +121,6 @@ class _LoginState extends State<Login> {
       "text": random.toString(),
     });
   }
-
 
   void alertBox() {
     setState(() {
@@ -153,7 +151,7 @@ class _LoginState extends State<Login> {
 //                  } else {
 //                    Navigator.pushReplacementNamed(context, '/Login');
 //                  }
-                Navigator.pop(context);
+                  Navigator.pop(context);
                   Navigator.pushReplacementNamed(context, '/FirstPage');
                 });
               },
@@ -167,10 +165,9 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    if (getPrefrence() == true) {
-      Navigator.pushReplacementNamed(context, '/FirstPage');
-    }
-
+//    if (getPrefrence() == true) {
+//      Navigator.pushReplacementNamed(context, '/FirstPage');
+//    }
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
