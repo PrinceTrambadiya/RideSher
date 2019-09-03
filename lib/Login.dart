@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:math';
-//import 'Shared_data.dart';
+import 'Shared_data.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -30,26 +30,6 @@ class _LoginState extends State<Login> {
 
   bool _ishidden = true;
 
-//  @override
-//  void intiState(){
-//    super.initState();
-//    getPrefrence();
-//  }
-
-//  Future<bool> getPrefrence() async {
-//    SharedPreferences pref = await SharedPreferences.getInstance();
-//    String uname = pref.getString('uname');
-//    String pass = pref.getString('pass');
-//    return addData(uname, pass);
-//  }
-
-  Future<void> savedPrefrence(String uname, String pass) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString('uname', uname);
-    pref.setString('pass', pass);
-    pref.commit();
-    return pref.commit();
-  }
 
   void _visibility() {
     setState(() {
@@ -165,9 +145,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-//    if (getPrefrence() == true) {
-//      Navigator.pushReplacementNamed(context, '/FirstPage');
-//    }
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

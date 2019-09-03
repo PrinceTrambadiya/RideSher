@@ -4,28 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Login.dart';
 import 'ConfirmPassword.dart';
 import 'Forgetpassword.dart';
-//import 'Shared_data.dart';
-
+import 'Shared_data.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   var page;
-
   bool banner;
-
-  Future<bool> getPrefrence() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String uname = pref.getString('uname');
-    String pass = pref.getString('pass');
-    if (uname != null && pass != null) {
-      return true;
-    } else {
-      return false;
-    }
-//return addData(uname, pass);
-  }
-
   @override
   Widget build(BuildContext context) {
     if (getPrefrence() == true) {

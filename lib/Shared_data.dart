@@ -16,8 +16,8 @@ Future<bool> getPrefrence() async {
 
 Future<void> savedPrefrence(String uname, String pass) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-  pref.setString('uname', 'hiiii');
-  pref.setString('pass', 'dudcs');
+  pref.setString('uname', uname);
+  pref.setString('pass', pass);
   return pref.commit();
 }
 //

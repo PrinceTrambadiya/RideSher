@@ -10,17 +10,17 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
   String pass;
   String uname;
-//
-//  @override
+
   Future<void> getPrefrence() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     uname = pref.getString('uname');
     pass = pref.getString('pass');
-    return [uname, pass];
+    return;
   }
 
+  @override
   Widget build(BuildContext context) {
-    var ls = getPrefrence();
+    getPrefrence();
     return Scaffold(
         appBar: AppBar(
           title: Text('First'),
