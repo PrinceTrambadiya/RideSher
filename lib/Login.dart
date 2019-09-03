@@ -271,10 +271,11 @@ class _LoginState extends State<Login> {
                     var m = cmobile.text;
                     var p = cpassword.text;
                     if (regex2.hasMatch(m) && m != "" && p != "") {
-                      if (addData(m.toString(), p) == true) {
-                        // validUser();
-                        Navigator.pushReplacementNamed(context, '/FirstPage');
-                      }
+                      addData(m.toString(), p);
+//                      if (addData(m.toString(), p) == true) {
+//                        // validUser();
+//                        Navigator.pushReplacementNamed(context, '/FirstPage');
+//                      }
                     }
                   });
                 },
