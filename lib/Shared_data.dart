@@ -6,7 +6,7 @@ Future<bool> getPrefrence() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   String uname = pref.getString('uname');
   String pass = pref.getString('pass');
-  if (uname != null && pass != null) {
+  if (uname != '' && pass != '') {
     return true;
   } else {
     return false;
