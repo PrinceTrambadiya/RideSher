@@ -17,6 +17,15 @@ Pattern pattern =
 Pattern pattern2 = r'^[789]\d{9}$';
 
 class _SignupState extends State<Signup> {
+
+  FocusNode namefocus;
+  FocusNode emailfocus;
+  FocusNode mobilefocus;
+  FocusNode dobfocus;
+  FocusNode addressfocus;
+  FocusNode passwordfocus;
+  FocusNode confirmfocus;
+
   TextEditingController cname = new TextEditingController();
   TextEditingController cmobile = new TextEditingController();
   TextEditingController cpassword = new TextEditingController();
@@ -120,6 +129,22 @@ class _SignupState extends State<Signup> {
   }
 
   @override
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    namefocus = FocusNode();
+    emailfocus = FocusNode();
+    mobilefocus = FocusNode();
+    dobfocus = FocusNode();
+    addressfocus = FocusNode();
+    passwordfocus = FocusNode();
+    confirmfocus = FocusNode();
+
+
+
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -135,6 +160,15 @@ class _SignupState extends State<Signup> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('New ',style: TextStyle(color: Colors.blue,fontSize: 25),),
+                    Text('User',style: TextStyle(color: Colors.cyan,fontSize: 25),),
+                  ],
+                ),
+              ),
 //            Padding(
 //              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
 //              child: Image.asset(
@@ -143,9 +177,13 @@ class _SignupState extends State<Signup> {
 //              ),
 //            ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 75, 15, 0),
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
                   autofocus: true,
+                  onSubmitted: (text) {
+                    FocusScope.of(context).requestFocus(emailfocus);
+                  },
                   textCapitalization: TextCapitalization.words,
                   controller: cname,
                   style: TextStyle(color: Colors.white),
@@ -153,15 +191,20 @@ class _SignupState extends State<Signup> {
                       hintStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(35.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
                       hintText: 'Name',
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35.0))),
+                          borderRadius: BorderRadius.circular(20.0))),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
+                  focusNode: emailfocus,
+                  onSubmitted: (text) {
+                    FocusScope.of(context).requestFocus(mobilefocus);
+                  },
                   controller: cemail,
                   style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.emailAddress,
@@ -169,15 +212,20 @@ class _SignupState extends State<Signup> {
                       hintStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(35.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
                       hintText: 'Email Id',
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35.0))),
+                          borderRadius: BorderRadius.circular(20.0))),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
+                  focusNode: mobilefocus,
+                  onSubmitted: (text) {
+                    FocusScope.of(context).requestFocus(dobfocus);
+                  },
                   controller: cmobile,
                   style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.phone,
@@ -185,15 +233,20 @@ class _SignupState extends State<Signup> {
                       hintStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(35.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
                       hintText: 'Mobile number',
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35.0))),
+                          borderRadius: BorderRadius.circular(20.0))),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
+                  focusNode: dobfocus,
+                  onSubmitted: (text) {
+                    FocusScope.of(context).requestFocus(addressfocus);
+                  },
 //                  onTap: () {
 //                    showDatePicker(
 //                            context: context,
@@ -214,15 +267,20 @@ class _SignupState extends State<Signup> {
                       hintStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(35.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
                       hintText: 'Date Of Birth',
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35.0))),
+                          borderRadius: BorderRadius.circular(20.0))),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
+                  focusNode: addressfocus,
+                  onSubmitted: (text) {
+                    FocusScope.of(context).requestFocus(passwordfocus);
+                  },
                   textCapitalization: TextCapitalization.sentences,
                   controller: caddress,
                   maxLines: 4,
@@ -231,15 +289,34 @@ class _SignupState extends State<Signup> {
                       hintStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(35.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
                       hintText: 'Address',
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35.0))),
+                          borderRadius: BorderRadius.circular(20.0))),
                 ),
               ),
+//              Padding(
+//                padding: const EdgeInsets.fromLTRB(15, 5, 0, 0),
+//                child: Row(
+//                  children: <Widget>[
+//                    Radio(value: 0, groupValue: first, onChanged: (var value){
+//                      setState(() {
+//                        first = value;
+//                      });
+//
+//                    },activeColor: Colors.blue,),
+//                    Radio(value: 1, groupValue: null, onChanged: null)
+//                  ],
+//                ),
+//              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
                 child: TextField(
+                  textInputAction: TextInputAction.next,
+                  focusNode: passwordfocus,
+                  onSubmitted: (text) {
+                    FocusScope.of(context).requestFocus(confirmfocus);
+                  },
                   controller: cpassword,
                   style: TextStyle(color: Colors.white),
                   obscureText: hintText1 == "Password" ? _ishidden1 : false,
@@ -247,7 +324,7 @@ class _SignupState extends State<Signup> {
                       hintStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(35.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
                       hintText: 'Password',
                       suffixIcon: hintText1 == "Password"
                           ? IconButton(
@@ -263,12 +340,15 @@ class _SignupState extends State<Signup> {
                               onPressed: _visibility1)
                           : null,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35.0))),
+                          borderRadius: BorderRadius.circular(20.0))),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
                 child: TextField(
+                  textInputAction: TextInputAction.done,
+                  focusNode: confirmfocus,
+                  onSubmitted: (text){signup();},
                   controller: cconfirmpassword,
                   style: TextStyle(color: Colors.white),
                   obscureText:
@@ -277,7 +357,7 @@ class _SignupState extends State<Signup> {
                       hintStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(35.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
                       hintText: hintText2,
                       suffixIcon: hintText2 == "Confirm password"
                           ? IconButton(
@@ -293,48 +373,28 @@ class _SignupState extends State<Signup> {
                               onPressed: _visibility2)
                           : null,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(35.0))),
+                          borderRadius: BorderRadius.circular(20.0))),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    gradient:
-                        LinearGradient(colors: [Colors.blue, Colors.cyan])),
-                child: MaterialButton(
-                  minWidth: 20,
-                  onPressed: () {
-                    setState(() {
-                      var n = cname.text;
-                      var m = cmobile.text;
-                      var p = cpassword.text;
-                      var a = caddress.text;
-                      var d = cdob.text;
-                      var e = cemail.text;
-                      var cp = cconfirmpassword.text;
-                      if (regex.hasMatch(e) &&
-                          regex2.hasMatch(m) &&
-                          n != "" &&
-                          m != "" &&
-                          p != "" &&
-                          a != "" &&
-                          d != "" &&
-                          e != "" &&
-                          p == cp) {
-                        //validUser();
-                        alertBox();
-                      } else {
-                        error;
-                      }
-                    });
+              Padding(
+                padding: const EdgeInsets.fromLTRB(100, 5, 100, 0),
+                child: GestureDetector(
+                  onTap: () {
+                    signup();
                   },
                   child: Container(
-                    child: Text(
-                      'GENERATE OTP',
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    height: 50,
+                    width: 200,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        gradient:
+                        LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                    child: Center(
+                        child: Text(
+                          "GENERATE OTP",
+                          style: TextStyle(fontSize: 18),
+                        )),
                   ),
-                  //color: Colors.lightBlue,
                 ),
               ),
             ],
@@ -342,5 +402,31 @@ class _SignupState extends State<Signup> {
         ),
       ),
     );
+  }
+  void signup()
+  {
+    setState(() {
+      var n = cname.text;
+      var m = cmobile.text;
+      var p = cpassword.text;
+      var a = caddress.text;
+      var d = cdob.text;
+      var e = cemail.text;
+      var cp = cconfirmpassword.text;
+      if (regex.hasMatch(e) &&
+          regex2.hasMatch(m) &&
+          n != "" &&
+          m != "" &&
+          p != "" &&
+          a != "" &&
+          d != "" &&
+          e != "" &&
+          p == cp) {
+        //validUser();
+        alertBox();
+      } else {
+        error;
+      }
+    });
   }
 }

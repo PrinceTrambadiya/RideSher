@@ -18,6 +18,9 @@ var data;
 Pattern pattern2 = r'^[789]\d{9}$';
 
 class _LoginState extends State<Login> {
+
+  FocusNode passwordfocus;
+
   TextEditingController cmobile = new TextEditingController();
   TextEditingController cpassword = new TextEditingController();
   TextEditingController centerOPT = new TextEditingController();
@@ -144,6 +147,12 @@ class _LoginState extends State<Login> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    passwordfocus = FocusNode();
+
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -156,15 +165,20 @@ class _LoginState extends State<Login> {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
               child: Image.asset(
                 'images/backgroundgif.gif',
-                height: 200,
+                height: 150,
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 75, 15, 0),
               child: TextField(
+                textInputAction: TextInputAction.next,
+                autofocus: true,
+                onSubmitted: (text) {
+                  FocusScope.of(context).requestFocus(passwordfocus);
+                },
                 controller: cmobile,
                 style: TextStyle(color: Colors.white, fontSize: 18),
                 keyboardType: TextInputType.number,
@@ -187,6 +201,9 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
               child: TextField(
+                textInputAction: TextInputAction.done,
+                focusNode: passwordfocus,
+                onSubmitted: (text){getstarted();},
                 controller: cpassword,
                 style: TextStyle(color: Colors.white, fontSize: 18),
                 obscureText: hintText1 == "Password" ? _ishidden : false,
@@ -210,7 +227,7 @@ class _LoginState extends State<Login> {
                         : null,
                     hintStyle: TextStyle(color: Colors.white),
                     icon: Icon(
-                      Icons.vpn_key,
+                      Icons.lock,
                       size: 45,
                       color: Colors.blue,
                     ),
@@ -241,17 +258,7 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.fromLTRB(100, 15, 100, 0),
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    var m = cmobile.text;
-                    var p = cpassword.text;
-                    if (regex2.hasMatch(m) && m != "" && p != "") {
-                      addData(m.toString(), p);
-//                      if (addData(m.toString(), p) == true) {
-//                        // validUser();
-//                        Navigator.pushReplacementNamed(context, '/FirstPage');
-//                      }
-                    }
-                  });
+                  getstarted();
                 },
                 child: Container(
                   height: 50,
@@ -304,5 +311,19 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+  void getstarted()
+  {
+    setState(() {
+      var m = cmobile.text;
+      var p = cpassword.text;
+      if (regex2.hasMatch(m) && m != "" && p != "") {
+        addData(m.toString(), p);
+//                      if (addData(m.toString(), p) == true) {
+//                        // validUser();
+//                        Navigator.pushReplacementNamed(context, '/FirstPage');
+//                      }
+      }
+    });
   }
 }
