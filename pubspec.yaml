@@ -51,6 +51,7 @@ flutter:
     - images/backgroundgif.gif
     - images/backgroundimage.jpg
     - images/ride1.jpg
+    - images/firstpagebackground.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
