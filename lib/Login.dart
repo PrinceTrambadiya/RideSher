@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
-
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Signup.dart';
 import 'Forgetpassword.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:math';
-import 'Shared_data.dart';
+//import 'Shared_data.dart';
 
+//SharedData shr;
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -33,7 +33,8 @@ class _LoginState extends State<Login> {
   RegExp regex2 = new RegExp(pattern2);
 
   bool _ishidden = true;
-
+  String _uname = '',
+      _pass = '';
 
   void _visibility() {
     setState(() {
@@ -41,8 +42,17 @@ class _LoginState extends State<Login> {
     });
   }
 
+
+  Future<void> savedPrefrence(String uname, String pass) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('saved_uname', uname);
+    pref.setString('saved_pass', pass);
+    pref.commit();
+    return;
+  }
   Future<bool> addData(mobile, pass) async {
     if (mobile == '9512252645' && pass == '123') {
+      //  print(pass+"in add data"+mobile);
       savedPrefrence(mobile, pass);
       Navigator.pushReplacementNamed(context, '/FirstPage');
       return true;

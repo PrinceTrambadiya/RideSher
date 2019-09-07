@@ -4,23 +4,65 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Login.dart';
 import 'ConfirmPassword.dart';
 import 'Forgetpassword.dart';
-import 'Shared_data.dart';
+import 'welcome.dart';
+//import 'Shared_data.dart';
 
+//SharedData shr;
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  var page;
-  bool banner;
+
+class MyApp extends StatefulWidget {
+
   @override
-  Widget build(BuildContext context) {
-    if (getPrefrence() == true) {
-      page = FirstPage();
+  _MyAppState createState() => _MyAppState();
+}
+
+
+class _MyAppState extends State<MyApp> {
+
+
+  var page;
+
+  bool banner = false;
+  String _uname = '',
+      _pass = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+//      _getPrefrence();
+//      print(_uname);
+//      print(_pass);
+//      print(page);
+//      print(banner);
+
+    super.initState();
+  }
+
+  @override
+  _getPrefrence() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _uname = pref.getString('saved_uname');
+    _pass = pref.getString('saved_pass');
+    print(_uname);
+    print(_pass);
+    if (_uname != '') {
+      //page = FirstPage();
+      Navigator.pushReplacementNamed(context, '/FirstPage');
       banner = true;
     }
     else {
-      page = Login();
+      Navigator.pushReplacementNamed(context, '/Login');
+//      page = Login();
       banner = false;
     }
+
+    //return Future.delayed(Duration(seconds: 5), () => throw Exception('Logout failed: user ID is invalid'));
+
+  }
+
+
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: banner,
       theme: ThemeData(
@@ -28,7 +70,7 @@ class MyApp extends StatelessWidget {
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.red)))),
       //home: Login(),
-      home: page,
+      home: Welcome(),
 //      home: call(),
       routes: <String,WidgetBuilder>{
         '/FirstPage': (BuildContext context) => new FirstPage(),
@@ -38,5 +80,6 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+
 
 }
