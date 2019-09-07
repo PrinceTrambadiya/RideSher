@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:math';
@@ -14,7 +13,6 @@ var data;
 Pattern pattern2 = r'^[789]\d{9}$';
 
 class _ForgetpasswordState extends State<Forgetpassword> {
-  bool _ishidden = true;
   TextEditingController cmobile = new TextEditingController();
   TextEditingController centerOPT = new TextEditingController();
   RegExp regex2 = new RegExp(pattern2);
@@ -23,23 +21,16 @@ class _ForgetpasswordState extends State<Forgetpassword> {
   var random;
   var fatchmobile;
 
-  void _visibility() {
-    setState(() {
-      _ishidden = !_ishidden;
+
+  Future<void> verifyMobile(mobile) async {
+    final response = await http
+        .post("https://ridesher.000webhostapp.com/forgotPassOTP.php", body: {
+      "mobile": mobile,
     });
-  }
-
-  Future<bool> verifyMobile(mobile) async {
-
-    final response = await http.post(
-        "https://ridesher.000webhostapp.com/forgotPassOTP.php",
-        body: {
-          "mobile": mobile,
-        });
 
     data = json.decode(response.body);
     var typemobile = mobile;
-     fatchmobile = data[0]['mobile'];
+    fatchmobile = data[0]['mobile'];
 
 //    print(data);
 //    print(fatchPass);
@@ -69,13 +60,11 @@ class _ForgetpasswordState extends State<Forgetpassword> {
         });
         return false;
       }
+    } else {
+      setState(() {
+        msg = 'Enter Again';
+      });
     }
-    else
-      {
-        setState(() {
-          msg = 'Enter Again';
-        });
-      }
   }
 
   void validUser() {
@@ -86,7 +75,6 @@ class _ForgetpasswordState extends State<Forgetpassword> {
       "text": random.toString(),
     });
   }
-
 
   void alertBox() {
     setState(() {
@@ -164,7 +152,6 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                         borderRadius: BorderRadius.circular(20))),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
               child: MaterialButton(
@@ -173,13 +160,12 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                     var m = cmobile.text;
                     if (regex2.hasMatch(m) && m != "") {
                       verifyMobile(m);
-                    }
-                    else{
+                    } else {
                       setState(() {
                         msg = 'Enter Again';
                       });
                     }
-                   // Navigator.pushReplacementNamed(context, '/ConfirmPassword');
+                    // Navigator.pushReplacementNamed(context, '/ConfirmPassword');
                   });
                 },
                 child: Text(
@@ -192,7 +178,10 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                     borderRadius: BorderRadius.circular(25)),
               ),
             ),
-            Text(msg,style: TextStyle(color: Colors.red),)
+            Text(
+              msg,
+              style: TextStyle(color: Colors.red),
+            )
           ],
         ),
       ),

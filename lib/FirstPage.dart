@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class FirstPage extends StatefulWidget {
   @override
@@ -10,18 +8,7 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  String _uname = "hi  ";
-  String _pass = "pas  ";
   var ls = new List();
-
-  @override
-  _getPrefrence1() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    _uname = pref.getString('saved_uname');
-    _pass = pref.getString('saved_pass');
-    return Future.delayed(Duration(seconds: 5), () => throw Exception(
-        'Logout failed: user ID is invalid'));
-  }
 
   removeData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -34,8 +21,8 @@ class _FirstPageState extends State<FirstPage> {
     Navigator.pushReplacementNamed(context, '/Login');
   }
 
+  @override
   Widget build(BuildContext context) {
-    _getPrefrence1();
 //          ],
 //        ));
     return Scaffold(
@@ -64,21 +51,13 @@ class _FirstPageState extends State<FirstPage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       gradient:
-                      LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                          LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
                       child: Text(
-                        "As a Driver",
-                        style: TextStyle(fontSize: 18),
-                      )),
+                    "As a Driver",
+                    style: TextStyle(fontSize: 18),
+                  )),
                 ),
-              ),
-              Text(
-                _uname,
-                style: TextStyle(color: Colors.white),
-              ),
-              Text(
-                _pass,
-                style: TextStyle(color: Colors.white),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
@@ -90,12 +69,12 @@ class _FirstPageState extends State<FirstPage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         gradient:
-                        LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                            LinearGradient(colors: [Colors.blue, Colors.cyan])),
                     child: Center(
                         child: Text(
-                          "As a Rider",
-                          style: TextStyle(fontSize: 18),
-                        )),
+                      "As a Rider",
+                      style: TextStyle(fontSize: 18),
+                    )),
                   ),
                 ),
               ),
@@ -111,12 +90,12 @@ class _FirstPageState extends State<FirstPage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         gradient:
-                        LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                            LinearGradient(colors: [Colors.blue, Colors.cyan])),
                     child: Center(
                         child: Text(
-                          "Log out",
-                          style: TextStyle(fontSize: 18),
-                        )),
+                      "Log out",
+                      style: TextStyle(fontSize: 18),
+                    )),
                   ),
                 ),
               ),

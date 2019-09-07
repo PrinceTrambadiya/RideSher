@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Signup.dart';
 import 'Forgetpassword.dart';
@@ -19,7 +18,6 @@ var data;
 Pattern pattern2 = r'^[789]\d{9}$';
 
 class _LoginState extends State<Login> {
-
   FocusNode passwordfocus;
 
   TextEditingController cmobile = new TextEditingController();
@@ -33,15 +31,12 @@ class _LoginState extends State<Login> {
   RegExp regex2 = new RegExp(pattern2);
 
   bool _ishidden = true;
-  String _uname = '',
-      _pass = '';
 
   void _visibility() {
     setState(() {
       _ishidden = !_ishidden;
     });
   }
-
 
   Future<void> savedPrefrence(String uname, String pass) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -50,61 +45,58 @@ class _LoginState extends State<Login> {
     pref.commit();
     return;
   }
-  Future<bool> addData(mobile, pass) async {
-    if (mobile == '9512252645' && pass == '123') {
-      //  print(pass+"in add data"+mobile);
-      savedPrefrence(mobile, pass);
-      Navigator.pushReplacementNamed(context, '/FirstPage');
-      return true;
+
+  Future<void> addData(mobile, pass) async {
+//    if (mobile == '9512252645' && pass == '123') {
+//      //  print(pass+"in add data"+mobile);
+//      savedPrefrence(mobile, pass);
+//      Navigator.pushReplacementNamed(context, '/FirstPage');
+//      return true;
+//    } else {
+//      setState(() {
+//        msg = 'Login Fail';
+//      });
+//      return false;
+//    }
+
+    final response = await http.post(
+        "https://ridesher.000webhostapp.com/login_registration.php",
+        body: {
+          "mobile": mobile,
+        });
+
+    data = json.decode(response.body);
+    var typePass = pass;
+    var fatchPass = data[0]['password'];
+
+//    print(data);
+    print(fatchPass);
+    print(typePass);
+
+    if (fatchPass == '') {
+      setState(() {
+        msg = 'Login Fail';
+      });
+    }
+
+    if (fatchPass == typePass) {
+      print("ganesh");
+      setState(() {
+        alertBox();
+//          savedPrefrence(mobile, typePass);
+//          Navigator.pushReplacementNamed(context, '/FirstPage');
+      });
+      //return true;
+    } else if (fatchPass != typePass) {
+      setState(() {
+        msg = 'Login Fail';
+      });
+      //  return false;
     } else {
       setState(() {
         msg = 'Login Fail';
       });
-      return false;
     }
-
-//
-//    final response = await http.post(
-//        "https://ridesher.000webhostapp.com/login_registration.php",
-//        body: {
-//          "mobile": mobile,
-//        });
-//
-//    data = json.decode(response.body);
-//    var typePass = pass;
-//    var fatchPass = data[0]['password'];
-//
-////    print(data);
-////    print(fatchPass);
-////    print(typePass);
-//
-//    if (fatchPass == '') {
-//      setState(() {
-//        msg = 'Login Fail';
-//      });
-//    }
-//
-//    if (fatchPass != '' && typePass != '') {
-//      if (fatchPass == typePass) {
-//        setState(() {
-//          alertBox();
-//          savedPrefrence(mobile, typePass);
-//        //  Navigator.pushReplacementNamed(context, '/FirstPage');
-//        });
-//        return true;
-//      } else if (fatchPass != typePass) {
-//        setState(() {
-//          msg = 'Login Fail';
-//        });
-//        return false;
-//      }
-//    }
-//    else
-//      {
-//        setState(() {
-//          msg = 'Login Fail';
-//        });
-//      }
   }
 
   void validUser() {
@@ -136,24 +128,57 @@ class _LoginState extends State<Login> {
         actions: <Widget>[
           FlatButton(
               onPressed: () {
+                var m = cmobile.text;
+                var p = cpassword.text;
 //                                  Navigator.pop(context);
 //                                  Navigator.pop(context);
 //                                  Navigator.pushReplacementNamed(context, '/Login');;
                 setState(() {
 //                  if (centerOPT.text == random.toString()) {
-//                    Navigator.pushReplacementNamed(context, '/FirstPage');
+//
+                  //return true;
 //                  } else {
-//                    Navigator.pushReplacementNamed(context, '/Login');
+//                   return false;
 //                  }
-                  Navigator.pop(context);
+//                  Navigator.pop(context);
+                  savedPrefrence(m, p);
                   Navigator.pushReplacementNamed(context, '/FirstPage');
+                  return true;
                 });
               },
               child: Text('Done',
                   style: TextStyle(fontSize: 25, color: Colors.red))),
+          FlatButton(
+              onPressed: () {
+                setState(() {});
+              },
+              child: Text('Cancle',
+                  style: TextStyle(fontSize: 25, color: Colors.red)))
         ],
       );
       showDialog(context: context, child: dialog);
+    });
+  }
+
+  void getstarted() {
+    setState(() {
+      var m = cmobile.text;
+      var p = cpassword.text;
+      print(m);
+      print(p);
+      if (regex2.hasMatch(m) && m != "" && p != "") {
+        addData(m.toString(), p);
+//                      if (addData(m.toString(),p)==true) {
+//print('adddata');
+//                        if(alertBox()== true)
+//                        {
+//                          print('alert');
+//                          savedPrefrence(m, p);
+//                          Navigator.pushReplacementNamed(context, '/FirstPage');
+//                        }
+//
+//                      }
+      }
     });
   }
 
@@ -162,8 +187,8 @@ class _LoginState extends State<Login> {
     // TODO: implement initState
     super.initState();
     passwordfocus = FocusNode();
-
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -172,7 +197,7 @@ class _LoginState extends State<Login> {
                 image: AssetImage('images/ride1.jpg'),
                 fit: BoxFit.fill,
                 colorFilter:
-                ColorFilter.mode(Colors.black87, BlendMode.hardLight))),
+                    ColorFilter.mode(Colors.black87, BlendMode.hardLight))),
         child: ListView(
           children: <Widget>[
             Padding(
@@ -214,7 +239,9 @@ class _LoginState extends State<Login> {
               child: TextField(
                 textInputAction: TextInputAction.done,
                 focusNode: passwordfocus,
-                onSubmitted: (text){getstarted();},
+                onSubmitted: (text) {
+                  getstarted();
+                },
                 controller: cpassword,
                 style: TextStyle(color: Colors.white, fontSize: 18),
                 obscureText: hintText1 == "Password" ? _ishidden : false,
@@ -225,16 +252,16 @@ class _LoginState extends State<Login> {
                     hintText: hintText1,
                     suffixIcon: hintText1 == "Password"
                         ? IconButton(
-                        icon: _ishidden
-                            ? Icon(
-                          Icons.visibility_off,
-                          color: Colors.blue,
-                        )
-                            : Icon(
-                          Icons.remove_red_eye,
-                          color: Colors.blue,
-                        ),
-                        onPressed: _visibility)
+                            icon: _ishidden
+                                ? Icon(
+                                    Icons.visibility_off,
+                                    color: Colors.blue,
+                                  )
+                                : Icon(
+                                    Icons.remove_red_eye,
+                                    color: Colors.blue,
+                                  ),
+                            onPressed: _visibility)
                         : null,
                     hintStyle: TextStyle(color: Colors.white),
                     icon: Icon(
@@ -277,12 +304,12 @@ class _LoginState extends State<Login> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       gradient:
-                      LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                          LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
                       child: Text(
-                        "Let's get Started",
-                        style: TextStyle(fontSize: 18),
-                      )),
+                    "Let's get Started",
+                    style: TextStyle(fontSize: 18),
+                  )),
                 ),
               ),
             ),
@@ -315,26 +342,12 @@ class _LoginState extends State<Login> {
             ),
             Center(
                 child: Text(
-                  msg,
-                  style: TextStyle(color: Colors.red, fontSize: 20),
-                )),
+              msg,
+              style: TextStyle(color: Colors.red, fontSize: 20),
+            )),
           ],
         ),
       ),
     );
-  }
-  void getstarted()
-  {
-    setState(() {
-      var m = cmobile.text;
-      var p = cpassword.text;
-      if (regex2.hasMatch(m) && m != "" && p != "") {
-        addData(m.toString(), p);
-//                      if (addData(m.toString(), p) == true) {
-//                        // validUser();
-//                        Navigator.pushReplacementNamed(context, '/FirstPage');
-//                      }
-      }
-    });
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
+
 import 'package:http/http.dart' as http;
 import 'dart:math';
 
@@ -17,7 +17,6 @@ Pattern pattern =
 Pattern pattern2 = r'^[789]\d{9}$';
 
 class _SignupState extends State<Signup> {
-
   FocusNode namefocus;
   FocusNode emailfocus;
   FocusNode mobilefocus;
@@ -83,7 +82,6 @@ class _SignupState extends State<Signup> {
     });
   }
 
-
   void alertBox() {
     setState(() {
       AlertDialog dialog = new AlertDialog(
@@ -129,7 +127,6 @@ class _SignupState extends State<Signup> {
   }
 
   @override
-
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -140,9 +137,6 @@ class _SignupState extends State<Signup> {
     addressfocus = FocusNode();
     passwordfocus = FocusNode();
     confirmfocus = FocusNode();
-
-
-
   }
 
   Widget build(BuildContext context) {
@@ -162,10 +156,17 @@ class _SignupState extends State<Signup> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-                child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('New ',style: TextStyle(color: Colors.blue,fontSize: 25),),
-                    Text('User',style: TextStyle(color: Colors.cyan,fontSize: 25),),
+                    Text(
+                      'New ',
+                      style: TextStyle(color: Colors.blue, fontSize: 25),
+                    ),
+                    Text(
+                      'User',
+                      style: TextStyle(color: Colors.cyan, fontSize: 25),
+                    ),
                   ],
                 ),
               ),
@@ -348,7 +349,9 @@ class _SignupState extends State<Signup> {
                 child: TextField(
                   textInputAction: TextInputAction.done,
                   focusNode: confirmfocus,
-                  onSubmitted: (text){signup();},
+                  onSubmitted: (text) {
+                    signup();
+                  },
                   controller: cconfirmpassword,
                   style: TextStyle(color: Colors.white),
                   obscureText:
@@ -388,12 +391,12 @@ class _SignupState extends State<Signup> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         gradient:
-                        LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                            LinearGradient(colors: [Colors.blue, Colors.cyan])),
                     child: Center(
                         child: Text(
-                          "GENERATE OTP",
-                          style: TextStyle(fontSize: 18),
-                        )),
+                      "GENERATE OTP",
+                      style: TextStyle(fontSize: 18),
+                    )),
                   ),
                 ),
               ),
@@ -403,8 +406,8 @@ class _SignupState extends State<Signup> {
       ),
     );
   }
-  void signup()
-  {
+
+  void signup() {
     setState(() {
       var n = cname.text;
       var m = cmobile.text;

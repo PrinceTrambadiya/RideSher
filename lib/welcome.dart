@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Login.dart';
-import 'FirstPage.dart';
+
 
 String _uname = 'hi', _pass = '';
 
@@ -13,6 +12,7 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+  int flag= 0;
   _getPrefrence() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     _uname = pref.getString('saved_uname');
@@ -20,26 +20,30 @@ class _WelcomeState extends State<Welcome> {
     print("JOJO" + _uname);
     print("KUKU" + _pass);
     if (_uname != 'hi') {
-      Navigator.pushReplacementNamed(context, '/FirstPage');
+//      Navigator.pushReplacementNamed(context, '/FirstPage');
+      flag =1;
       print("bar");
     }
   }
 
-  start_timer() async {
-    var duration = Duration(seconds: 5);
+  start_Timer() async {
+    var duration = Duration(seconds: 3);
     return new Timer(duration, callback);
   }
 
   void callback() {
-    _getPrefrence();
-    Navigator.pushReplacementNamed(context, '/Login');
+//    _getPrefrence();
+    if(flag==1){
+    Navigator.pushReplacementNamed(context, '/FirstPage');
+    }
+    else Navigator.pushReplacementNamed(context, '/Login');
   }
 
   @override
   void initState() {
     // TODO: implement initState
     _getPrefrence();
-    start_timer();
+    start_Timer();
     super.initState();
   }
 
