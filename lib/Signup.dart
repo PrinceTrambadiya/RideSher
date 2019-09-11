@@ -89,15 +89,13 @@ class _SignupState extends State<Signup> {
         shape: RoundedRectangleBorder(
             side: BorderSide(style: BorderStyle.solid),
             borderRadius: BorderRadius.circular(30)),
-        content: Column(
-          children: <Widget>[
-            Text('User Verifaction'),
+        title: Text('User Verifaction'),
+        content:
             TextField(
               controller: centerOPT,
               decoration: InputDecoration(hintText: 'Enter OTP'),
-            )
-          ],
-        ),
+            ),
+
         actions: <Widget>[
           FlatButton(
               onPressed: () {
@@ -381,24 +379,23 @@ class _SignupState extends State<Signup> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(100, 5, 100, 0),
-                child: GestureDetector(
-                  onTap: () {
-                    signup();
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 200,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        gradient:
-                            LinearGradient(colors: [Colors.blue, Colors.cyan])),
-                    child: Center(
-                        child: Text(
-                      "GENERATE OTP",
-                      style: TextStyle(fontSize: 18),
-                    )),
-                  ),
+
+                child: Container(
+                  height: 50,
+                  width: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      gradient:
+                      LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                  child: Center(
+                      child: MaterialButton(splashColor: Colors.black,child: Text("GENERATE OTP",
+                          style: TextStyle(fontSize: 18)),
+                        onPressed: (){
+                          signup();
+                        },padding: EdgeInsets.fromLTRB(35,5,35,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                      )),
                 ),
+
               ),
             ],
           ),

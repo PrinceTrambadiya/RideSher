@@ -116,15 +116,13 @@ class _LoginState extends State<Login> {
         shape: RoundedRectangleBorder(
             side: BorderSide(style: BorderStyle.solid),
             borderRadius: BorderRadius.circular(30)),
-        content: Column(
-          children: <Widget>[
-            Text('User Verifaction'),
+        title: Text('User Verifaction'),
+        content:
             TextField(
               controller: centerOPT,
               decoration: InputDecoration(hintText: 'Enter OTP'),
-            )
-          ],
-        ),
+            ),
+
         actions: <Widget>[
           FlatButton(
               onPressed: () {
@@ -294,10 +292,7 @@ class _LoginState extends State<Login> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(100, 15, 100, 0),
-              child: GestureDetector(
-                onTap: () {
-                  getstarted();
-                },
+
                 child: Container(
                   height: 50,
                   width: 10,
@@ -306,12 +301,13 @@ class _LoginState extends State<Login> {
                       gradient:
                           LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
-                      child: Text(
-                    "Let's get Started",
-                    style: TextStyle(fontSize: 18),
+                      child: MaterialButton(splashColor: Colors.black,child: Text("Let's get Started",
+                          style: TextStyle(fontSize: 18)),
+                    onPressed: (){
+                      getstarted();
+                    },padding: EdgeInsets.fromLTRB(33,5,33,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                   )),
                 ),
-              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

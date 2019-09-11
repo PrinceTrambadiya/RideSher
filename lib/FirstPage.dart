@@ -43,60 +43,55 @@ class _FirstPageState extends State<FirstPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              GestureDetector(
-                onTap: () {},
+              Container(
+                height: 50,
+                width: 250,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    gradient:
+                    LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                child: Center(
+                    child: MaterialButton(splashColor: Colors.black,child: Text("As a Driver",
+                        style: TextStyle(fontSize: 18)),
+                      onPressed: (){
+
+                      },padding: EdgeInsets.fromLTRB(76,5,76,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                 child: Container(
                   height: 50,
                   width: 250,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       gradient:
-                          LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                      LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
-                      child: Text(
-                    "As a Driver",
-                    style: TextStyle(fontSize: 18),
-                  )),
+                      child: MaterialButton(splashColor: Colors.black,child: Text("As a Rider",
+                          style: TextStyle(fontSize: 18)),
+                        onPressed: (){
+
+                        },padding: EdgeInsets.fromLTRB(80,5,80,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                      )),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 50,
-                    width: 250,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        gradient:
-                            LinearGradient(colors: [Colors.blue, Colors.cyan])),
-                    child: Center(
-                        child: Text(
-                      "As a Rider",
-                      style: TextStyle(fontSize: 18),
-                    )),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                child: GestureDetector(
-                  onTap: () {
-                    logout();
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 250,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        gradient:
-                            LinearGradient(colors: [Colors.blue, Colors.cyan])),
-                    child: Center(
-                        child: Text(
-                      "Log out",
-                      style: TextStyle(fontSize: 18),
-                    )),
-                  ),
+               child: Container(
+                  height: 50,
+                  width: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      gradient:
+                      LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                  child: Center(
+                      child: MaterialButton(splashColor: Colors.black,child: Text("Log Out",
+                          style: TextStyle(fontSize: 18)),
+                        onPressed: (){
+                          logout();
+                        },padding: EdgeInsets.fromLTRB(90,5,90,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                      )),
                 ),
               ),
             ],
