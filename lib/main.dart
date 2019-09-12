@@ -3,6 +3,7 @@ import 'package:ride_sher/FirstPage.dart';
 import 'Login.dart';
 import 'Forgetpassword.dart';
 import 'welcome.dart';
+import 'Driver_details.dart';
 //import 'Shared_data.dart';
 
 //SharedData shr;
@@ -47,6 +48,7 @@ class _MyAppState extends State<MyApp> {
         '/Login': (BuildContext context) => new Login(),
         //  '/ConfirmPassword': (BuildContext context) => new ConfirmPassword(),
         '/Forgetpassword': (BuildContext context) => new Forgetpassword(),
+        '/driver_details': (BuildContext context) => new driver_details(),
       },
     );
   }

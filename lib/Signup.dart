@@ -382,14 +382,14 @@ class _SignupState extends State<Signup> {
 
                 child: Container(
                   height: 50,
-                  width: 250,
+                  width: 300,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       gradient:
                       LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
                       child: MaterialButton(splashColor: Colors.black,child: Text("GENERATE OTP",
-                          style: TextStyle(fontSize: 18)),
+                          style: TextStyle(fontSize: 16)),
                         onPressed: (){
                           signup();
                         },padding: EdgeInsets.fromLTRB(35,5,35,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),

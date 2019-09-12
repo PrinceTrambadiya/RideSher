@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'Driver_details.dart';
 
 class FirstPage extends StatefulWidget {
   @override
@@ -27,19 +28,19 @@ class _FirstPageState extends State<FirstPage> {
 //        ));
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Text('Home Page'),
-      ),
+//      appBar: AppBar(
+//        title: Text('Home Page'),
+//      ),
       body: Center(
         child: Container(
           height: 350,
           width: 500,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/firstpagebackground.gif'),
-              fit: BoxFit.fill,
-            ),
-          ),
+//          decoration: BoxDecoration(
+//            image: DecorationImage(
+//              image: AssetImage('images/firstpagebackground.gif'),
+//              fit: BoxFit.fill,
+//            ),
+//          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -49,14 +50,24 @@ class _FirstPageState extends State<FirstPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     gradient:
-                    LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                        LinearGradient(colors: [Colors.blue, Colors.cyan])),
                 child: Center(
-                    child: MaterialButton(splashColor: Colors.black,child: Text("As a Driver",
-                        style: TextStyle(fontSize: 18)),
-                      onPressed: (){
-
-                      },padding: EdgeInsets.fromLTRB(76,5,76,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-                    )),
+                    child: MaterialButton(
+                  splashColor: Colors.black,
+                  child: Text("As a Driver", style: TextStyle(fontSize: 18)),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => driver_details()));
+                    });
+                  },
+                  padding: EdgeInsets.fromLTRB(76, 5, 76, 5),
+                  height: 50,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                )),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
@@ -66,32 +77,40 @@ class _FirstPageState extends State<FirstPage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       gradient:
-                      LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                          LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
-                      child: MaterialButton(splashColor: Colors.black,child: Text("As a Rider",
-                          style: TextStyle(fontSize: 18)),
-                        onPressed: (){
-
-                        },padding: EdgeInsets.fromLTRB(80,5,80,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-                      )),
+                      child: MaterialButton(
+                    splashColor: Colors.black,
+                    child: Text("As a Rider", style: TextStyle(fontSize: 18)),
+                    onPressed: () {},
+                    padding: EdgeInsets.fromLTRB(80, 5, 80, 5),
+                    height: 50,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                  )),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-               child: Container(
+                child: Container(
                   height: 50,
                   width: 250,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       gradient:
-                      LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                          LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
-                      child: MaterialButton(splashColor: Colors.black,child: Text("Log Out",
-                          style: TextStyle(fontSize: 18)),
-                        onPressed: (){
-                          logout();
-                        },padding: EdgeInsets.fromLTRB(90,5,90,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-                      )),
+                      child: MaterialButton(
+                    splashColor: Colors.black,
+                    child: Text("Log Out", style: TextStyle(fontSize: 18)),
+                    onPressed: () {
+                      logout();
+                    },
+                    padding: EdgeInsets.fromLTRB(90, 5, 90, 5),
+                    height: 50,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                  )),
                 ),
               ),
             ],
