@@ -8,10 +8,6 @@ import 'dart:async';
 import 'dart:math';
 //import 'Shared_data.dart';
 
-
-var m;
-var p;
-
 //SharedData shr;
 class Login extends StatefulWidget {
   @override
@@ -130,17 +126,8 @@ class _LoginState extends State<Login> {
         actions: <Widget>[
           FlatButton(
               onPressed: () {
-                setState(() {
-
-                });
-              },
-              child: Text('Cancle',
-                  style: TextStyle(fontSize: 25, color: Colors.red)))
-          ,FlatButton(
-
-              onPressed: () {
-                 m = cmobile.text;
-                 p = cpassword.text;
+                var m = cmobile.text;
+                var p = cpassword.text;
 //                                  Navigator.pop(context);
 //                                  Navigator.pop(context);
 //                                  Navigator.pushReplacementNamed(context, '/Login');;
@@ -159,7 +146,12 @@ class _LoginState extends State<Login> {
               },
               child: Text('Done',
                   style: TextStyle(fontSize: 25, color: Colors.red))),
-
+          FlatButton(
+              onPressed: () {
+                setState(() {});
+              },
+              child: Text('Cancle',
+                  style: TextStyle(fontSize: 25, color: Colors.red)))
         ],
       );
       showDialog(context: context, child: dialog);
@@ -309,8 +301,8 @@ class _LoginState extends State<Login> {
                       gradient:
                           LinearGradient(colors: [Colors.blue, Colors.cyan])),
                   child: Center(
-                      child: MaterialButton(splashColor: Colors.black,child: Text("LOGIN",
-                          style: TextStyle(fontSize: 16)),
+                      child: MaterialButton(splashColor: Colors.black,child: Text("Let's get Started",
+                          style: TextStyle(fontSize: 18)),
                     onPressed: (){
                       getstarted();
                     },padding: EdgeInsets.fromLTRB(33,5,33,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
