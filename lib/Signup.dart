@@ -149,9 +149,10 @@ class _SignupState extends State<Signup> {
                   fit: BoxFit.fill,
                   colorFilter:
                       ColorFilter.mode(Colors.black87, BlendMode.hardLight))),
-          child: Column(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                 child: Row(
@@ -175,6 +176,7 @@ class _SignupState extends State<Signup> {
 //                height: 200,
 //              ),
 //            ),
+
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: TextField(

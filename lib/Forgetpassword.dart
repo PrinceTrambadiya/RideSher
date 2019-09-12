@@ -84,15 +84,14 @@ class _ForgetpasswordState extends State<Forgetpassword> {
         shape: RoundedRectangleBorder(
             side: BorderSide(style: BorderStyle.solid),
             borderRadius: BorderRadius.circular(30)),
-        content: Column(
-          children: <Widget>[
-            Text('User Verifaction'),
+        title: Text('User Verifaction'),
+        content:
             TextField(
               controller: centerOPT,
+
               decoration: InputDecoration(hintText: 'Enter OTP'),
-            )
-          ],
-        ),
+            ),
+
         actions: <Widget>[
           FlatButton(
               onPressed: () {
@@ -139,6 +138,11 @@ class _ForgetpasswordState extends State<Forgetpassword> {
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
               child: TextField(
+                autofocus: true,
+                textInputAction: TextInputAction.done,
+                onSubmitted: (text){
+                  otp(); //otp() is function
+                },
                 controller: cmobile,
                 style: TextStyle(color: Colors.white),
                 keyboardType: TextInputType.number,
@@ -156,17 +160,8 @@ class _ForgetpasswordState extends State<Forgetpassword> {
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
               child: MaterialButton(
                 onPressed: () {
-                  setState(() {
-                    var m = cmobile.text;
-                    if (regex2.hasMatch(m) && m != "") {
-                      verifyMobile(m);
-                    } else {
-                      setState(() {
-                        msg = 'Enter Again';
-                      });
-                    }
-                    // Navigator.pushReplacementNamed(context, '/ConfirmPassword');
-                  });
+                  otp(); //otp() is function
+
                 },
                 child: Text(
                   'Generate OTP',
@@ -186,5 +181,19 @@ class _ForgetpasswordState extends State<Forgetpassword> {
         ),
       ),
     );
+  }
+  void otp()
+  {
+    setState(() {
+      var m = cmobile.text;
+      if (regex2.hasMatch(m) && m != "") {
+        verifyMobile(m);
+      } else {
+        setState(() {
+          msg = 'Enter Again';
+        });
+      }
+      // Navigator.pushReplacementNamed(context, '/ConfirmPassword');
+    });
   }
 }

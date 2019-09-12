@@ -112,18 +112,38 @@ class _LoginState extends State<Login> {
     setState(() {
       //   validUser();
       AlertDialog dialog = new AlertDialog(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.white,
+
         shape: RoundedRectangleBorder(
             side: BorderSide(style: BorderStyle.solid),
             borderRadius: BorderRadius.circular(30)),
         title: Text('User Verifaction'),
-        content:
-            TextField(
-              controller: centerOPT,
-              decoration: InputDecoration(hintText: 'Enter OTP'),
-            ),
+content: Container(
+  decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.blue,Colors.cyan]) ),
+  child: TextField(style: TextStyle(color: Colors.black,fontSize: 18),
+    keyboardType: TextInputType.number,
+    autofocus: true,
+    controller: centerOPT,
+    decoration: InputDecoration(hintText: 'Enter OTP',
+      hintStyle: TextStyle(color: Colors.black,fontSize: 18)
+
+    ),
+
+  )
+),
+//        content:
+//            TextField(
+//              controller: centerOPT,
+//              decoration: InputDecoration(hintText: 'Enter OTP'),
+//            ),
 
         actions: <Widget>[
+          FlatButton(
+              onPressed: () {
+                setState(() {});
+              },
+              child: Text('Cancle',
+                  style: TextStyle(fontSize: 25, color: Colors.red))),
           FlatButton(
               onPressed: () {
                 var m = cmobile.text;
@@ -146,12 +166,7 @@ class _LoginState extends State<Login> {
               },
               child: Text('Done',
                   style: TextStyle(fontSize: 25, color: Colors.red))),
-          FlatButton(
-              onPressed: () {
-                setState(() {});
-              },
-              child: Text('Cancle',
-                  style: TextStyle(fontSize: 25, color: Colors.red)))
+
         ],
       );
       showDialog(context: context, child: dialog);

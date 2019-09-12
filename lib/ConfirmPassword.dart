@@ -17,13 +17,25 @@ class ConfirmPassword extends StatefulWidget {
 class _ConfirmPasswordState extends State<ConfirmPassword> {
   TextEditingController cfirstPass = new TextEditingController();
   TextEditingController csecondPass = new TextEditingController();
-  bool _ishidden = true;
+
   var msg = Text('Update Successful');
   var m = mobile;
 
-  void _visibility() {
+  FocusNode confirmpasswordfocus;
+
+  bool _ishidden1 = true;
+  bool _ishidden2 = true;
+  var hintText1 = 'Enter New Password';
+  var hintText2 = 'Enter Confirm password';
+  void _visibility1() {
     setState(() {
-      _ishidden = !_ishidden;
+      _ishidden1 = !_ishidden1;
+    });
+  }
+
+  void _visibility2() {
+    setState(() {
+      _ishidden2 = !_ishidden2;
     });
   }
 
@@ -67,6 +79,12 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
 
   var hintText = 'Enter Confirm Password';
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    confirmpasswordfocus = FocusNode();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -85,53 +103,79 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
               padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
               child: TextField(
                 controller: cfirstPass,
-                style: TextStyle(color: Colors.white, fontSize: 18),
-                obscureText: true,
+                autofocus: true,
+                onSubmitted: (text) {
+                  FocusScope.of(context).requestFocus(confirmpasswordfocus);
+                },
+                textInputAction: TextInputAction.next,
+
+                style: TextStyle(color: Colors.white),
+                obscureText: hintText1 == "Enter New Password" ? _ishidden1 : false,
                 decoration: InputDecoration(
+                    hintStyle: TextStyle(color: Colors.white),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(20)),
-                    hintText: 'Enter New Password',
-                    hintStyle: TextStyle(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20.0)),
+                    hintText: hintText1,
+                    suffixIcon: hintText1 == "Enter New Password"
+                        ? IconButton(
+                        icon: _ishidden1
+                            ? Icon(
+                          Icons.visibility_off,
+                          color: Colors.blue,
+                        )
+                            : Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.blue,
+                        ),
+                        onPressed: _visibility1)
+                        : null,
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20))),
+                        borderRadius: BorderRadius.circular(20.0))),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
               child: TextField(
                 controller: csecondPass,
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                focusNode: confirmpasswordfocus,
+                onSubmitted: (text) {
+                  confirm();
+                },
+                textInputAction: TextInputAction.done,
+
+
+                style: TextStyle(color: Colors.white),
                 obscureText:
-                    hintText == "Enter Confirm Password" ? _ishidden : false,
+                hintText2 == "Enter Confirm password" ? _ishidden2 : false,
                 decoration: InputDecoration(
-                    suffixIcon: hintText == "Enter Confirm Password"
-                        ? IconButton(
-                            icon: _ishidden
-                                ? Icon(Icons.visibility_off)
-                                : Icon(Icons.remove_red_eye),
-                            onPressed: _visibility)
-                        : null,
+                    hintStyle: TextStyle(color: Colors.white),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(20)),
-                    hintText: hintText,
-                    hintStyle: TextStyle(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20.0)),
+                    hintText: hintText2,
+                    suffixIcon: hintText2 == "Enter Confirm password"
+                        ? IconButton(
+                        icon: _ishidden2
+                            ? Icon(
+                          Icons.visibility_off,
+                          color: Colors.blue,
+                        )
+                            : Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.blue,
+                        ),
+                        onPressed: _visibility2)
+                        : null,
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20))),
+                        borderRadius: BorderRadius.circular(20.0))),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
               child: MaterialButton(
                 onPressed: () {
-                  setState(() {
-                    var password = cfirstPass.text;
-                    var sp = csecondPass.text;
-                    if (password != '' && sp != '' && password == sp) {
-                      updatePassword(password, sp);
-                    }
-                  });
+                    confirm();
                 },
                 child: Text(
                   'Confirm',
@@ -147,5 +191,15 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
         ),
       ),
     );
+  }
+  void confirm()
+  {
+    setState(() {
+      var password = cfirstPass.text;
+      var sp = csecondPass.text;
+      if (password != '' && sp != '' && password == sp) {
+        updatePassword(password, sp);
+      }
+    });
   }
 }
