@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Signup.dart';
 import 'Forgetpassword.dart';
@@ -117,13 +118,21 @@ class _LoginState extends State<Login> {
             side: BorderSide(style: BorderStyle.solid),
             borderRadius: BorderRadius.circular(30)),
         title: Text('User Verifaction'),
-        content:
-            TextField(
-              controller: centerOPT,
-              decoration: InputDecoration(hintText: 'Enter OTP'),
-            ),
-
+        content: TextField(
+          controller: centerOPT,
+          decoration: InputDecoration(hintText: 'Enter OTP'),
+        ),
         actions: <Widget>[
+          FlatButton(
+              onPressed: () {
+                setState(() {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, '/Login');
+                });
+              },
+              child: Text('Cancle',
+                  style: TextStyle(fontSize: 25, color: Colors.red))),
           FlatButton(
               onPressed: () {
                 var m = cmobile.text;
@@ -140,18 +149,14 @@ class _LoginState extends State<Login> {
 //                  }
 //                  Navigator.pop(context);
                   savedPrefrence(m, p);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
                   Navigator.pushReplacementNamed(context, '/FirstPage');
                   return true;
                 });
               },
               child: Text('Done',
                   style: TextStyle(fontSize: 25, color: Colors.red))),
-          FlatButton(
-              onPressed: () {
-                setState(() {});
-              },
-              child: Text('Cancle',
-                  style: TextStyle(fontSize: 25, color: Colors.red)))
         ],
       );
       showDialog(context: context, child: dialog);
@@ -292,22 +297,26 @@ class _LoginState extends State<Login> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(100, 15, 100, 0),
-
-                child: Container(
+              child: Container(
+                height: 50,
+                width: 10,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    gradient:
+                        LinearGradient(colors: [Colors.blue, Colors.cyan])),
+                child: Center(
+                    child: MaterialButton(
+                  splashColor: Colors.black,
+                  child: Text("LOGIN", style: TextStyle(fontSize: 20)),
+                  onPressed: () {
+                    getstarted();
+                  },
+                  padding: EdgeInsets.fromLTRB(33, 5, 33, 5),
                   height: 50,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      gradient:
-                          LinearGradient(colors: [Colors.blue, Colors.cyan])),
-                  child: Center(
-                      child: MaterialButton(splashColor: Colors.black,child: Text("Let's get Started",
-                          style: TextStyle(fontSize: 18)),
-                    onPressed: (){
-                      getstarted();
-                    },padding: EdgeInsets.fromLTRB(33,5,33,5),height: 50,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-                  )),
-                ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                )),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

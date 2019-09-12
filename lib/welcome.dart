@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-String _uname = '', _pass = '';
+String _uname = 'hi', _pass = '';
 
 class Welcome extends StatefulWidget {
   @override
@@ -17,8 +17,8 @@ class _WelcomeState extends State<Welcome> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     _uname = pref.getString('saved_uname');
     _pass = pref.getString('saved_pass');
-//    print("JOJO" + _uname);
-//    print("KUKU" + _pass);
+    print(_uname);
+    print(_pass);
     if (_uname != 'hi') {
 //      Navigator.pushReplacementNamed(context, '/FirstPage');
       flag =1;
@@ -27,7 +27,7 @@ class _WelcomeState extends State<Welcome> {
   }
 
   start_Timer() async {
-    var duration = Duration(seconds: 3);
+    var duration = Duration(seconds: 1);
     return new Timer(duration, callback);
   }
 
@@ -54,7 +54,7 @@ class _WelcomeState extends State<Welcome> {
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Text('Welcome To Rideshare',style: TextStyle(color: Colors.red,fontSize: 35),)],
+            children: <Widget>[Text('welcome to rideshare',style: TextStyle(color: Colors.red,fontSize: 35),)],
           ),
         ),
       ),
